@@ -1,4 +1,4 @@
-Name,Description,Comments
-dataset,Dataset,
-service,Service,
-process,Process,
+Name,Description
+dataset,Dataset
+service,Service
+process,Process
