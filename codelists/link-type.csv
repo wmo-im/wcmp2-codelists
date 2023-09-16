@@ -3,3 +3,5 @@ http://def.wmo.int/def/rel/wmdr/-/EnvironmentalMonitoringFacility,Environmental 
 http://def.wmo.int/def/rel/wmdr/-/FacilitySet,Facility set
 http://def.wmo.int/def/rel/wnm/-/update,Resource update
 http://def.wmo.int/def/rel/wnm/-/deletion,Resource deletion
+items,Items/data granules (from OGC 17-069r4)
+data,Data (from OGC 17-069r4)
