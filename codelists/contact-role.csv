@@ -1,5 +1,5 @@
-Name,Description
-licensor,The organization that is licensing the dataset under the license specified in the Collection's license field
-producer,"The producer of the data is the provider that initially captured and processed the source data, e.g. ESA for Sentinel-2 data"
-processor,A processor is any provider who processed data to a derived product
-host,"The host is the actual provider offering the data on their storage. There should be no more than one host, specified as last element of the list"
+Name,Description,Source
+licensor,The organization that is licensing the dataset under the license specified in the Collection's license field,https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object
+producer,"The producer of the data is the provider that initially captured and processed the source data, e.g. ESA for Sentinel-2 data",https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object
+processor,A processor is any provider who processed data to a derived product,https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object
+host,"The host is the actual provider offering the data on their storage. There should be no more than one host, specified as last element of the list",https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object

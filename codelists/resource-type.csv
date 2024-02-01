@@ -1,4 +1,4 @@
-Name,Description
-dataset,Dataset
-service,Service
-process,Process
+Name,Description,Source
+dataset,Dataset,https://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode_dataset
+service,Service,https://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode_service
+process,Process,https://docs.ogc.org/is/18-062r2/18-062r2.html#toc35
