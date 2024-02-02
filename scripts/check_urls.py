@@ -137,24 +137,14 @@ for f in glob.glob('ttls_wcmp2/**/*.ttl', recursive=True):
             # handle content oddities in the test register that have not been able to be resolved
             # outstanding actions to fix content issues in the test register data store 
             if os.environ.get('tmode') == 'test':
-                if resourceURI == 'http://ci.codes.wmo.int/wmdr/ObservingMethodTerrestrial/inapplicable':
+                if resourceURI == 'http://ci.codes.wmo.int/wis2/inapplicable': # check inapplicable
                     expected_rdfgraph.remove((rdflib.term.URIRef(identityURI),
                                               rdflib.namespace.RDFS.label,
                                               rdflib.term.Literal("(inapplicable)")))
-                elif resourceURI == 'http://ci.codes.wmo.int/wmdr/ObservingMethodTerrestrial/unknown':
+                elif resourceURI == 'http://ci.codes.wmo.int/wis2/unknown': # check unknown
                     expected_rdfgraph.remove((rdflib.term.URIRef(identityURI),
                                               rdflib.namespace.RDFS.label,
                                               rdflib.term.Literal("(unknown)")))
-                elif resourceURI == 'http://ci.codes.wmo.int/wmdr/WaterML2_0':
-                    expected_rdfgraph.remove((rdflib.term.URIRef(identityURI),
-                                              rdflib.namespace.SKOS.member,
-                                              rdflib.term.Literal("Empty")))
-                    expected_rdfgraph.remove((rdflib.term.URIRef(identityURI),
-                                              rdflib.namespace.DCTERMS.description,
-                                              rdflib.term.Literal("WMO Quality flag (From WaterML2)")))
-                    expected_rdfgraph.add((rdflib.term.URIRef(identityURI),
-                                           rdflib.namespace.DCTERMS.description,
-                                           rdflib.term.Literal("Quality flag (From WaterML2)")))
             self.check_result(result_rdfgraph, expected_rdfgraph, uploads, identityURI, resourceURI)
         return entity_consistent
 
