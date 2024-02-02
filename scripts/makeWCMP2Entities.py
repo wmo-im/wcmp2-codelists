@@ -21,7 +21,8 @@ conceptTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \n'
                    '<{identity}> a skos:Concept ;\n'
                    '\trdfs:label "{label}" ;\n'
                    '\tskos:notation "{notation}" ;\n'
-                   '\tdct:description "{description}"@en'
+                   '\tdct:description "{description}" ;\n'
+                   '\tskos:related "{source}"@en'
                    '\t.\n')
 
 def clean(astr):
