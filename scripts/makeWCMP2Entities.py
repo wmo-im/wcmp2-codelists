@@ -43,8 +43,7 @@ def main():
             if not os.path.exists(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0]))):
                 raise ValueError('WCMP2 Table {} missing from path'.format(wcmp2table[0]))
             with open(os.path.join(root_path, 'ttls_wcmp2', '{}.ttl'.format(identifier)), 'w', encoding='utf-8') as ttlf:
-                ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0], label=clean(wcmp2table[0]),
-                                                  description=clean(wcmp2table[1]), source=lean(wcmp2table[2])))
+                ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0]), label=clean(wcmp2table[0]), description=clean(wcmp2table[1]), source=clean(wcmp2table[2])))
             if not os.path.exists(os.path.join(root_path, 'ttls_wcmp2', identifier)):
                 os.mkdir(os.path.join(root_path, 'ttls_wcmp2', identifier))
             with open(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0])), encoding='utf-8') as wcmp2entries:
