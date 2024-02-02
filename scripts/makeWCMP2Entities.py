@@ -12,7 +12,8 @@ collectionTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \
                       '<{identity}> a reg:Register , skos:Collection , ldp:Container  ;\n'
                       '\tldp:hasMemberRelation skos:member ;\n'
                       '\trdfs:label "{label}" ;\n'
-                      '\tdct:description "{description}" .\n')
+                      '\tdct:description "{description}" ;\n'
+                      '\tskos:related "{source} .\n')
 
 conceptTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \n'
                    '@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n'
