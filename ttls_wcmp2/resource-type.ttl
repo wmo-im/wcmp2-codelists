@@ -7,4 +7,5 @@
 <resource-type> a reg:Register , skos:Collection , ldp:Container  ;
 	ldp:hasMemberRelation skos:member ;
 	rdfs:label "resource-type" ;
-	dct:description "resource-type" .
+	dct:description "resource-type" ;
+	skos:related "http://codes.wmo.int/wis2/resource-type .

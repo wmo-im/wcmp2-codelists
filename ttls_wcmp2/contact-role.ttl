@@ -7,4 +7,5 @@
 <contact-role> a reg:Register , skos:Collection , ldp:Container  ;
 	ldp:hasMemberRelation skos:member ;
 	rdfs:label "contact-role" ;
-	dct:description "contact-role" .
+	dct:description "contact-role" ;
+	skos:related "http://codes.wmo.int/wis2/contact-role .

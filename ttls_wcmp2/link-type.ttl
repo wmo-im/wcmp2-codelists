@@ -7,4 +7,5 @@
 <link-type> a reg:Register , skos:Collection , ldp:Container  ;
 	ldp:hasMemberRelation skos:member ;
 	rdfs:label "link-type" ;
-	dct:description "link-type" .
+	dct:description "link-type" ;
+	skos:related "http://codes.wmo.int/wis2/link-type .

@@ -7,4 +7,5 @@
 <global-service-type> a reg:Register , skos:Collection , ldp:Container  ;
 	ldp:hasMemberRelation skos:member ;
 	rdfs:label "global-service-type" ;
-	dct:description "global-service-type" .
+	dct:description "global-service-type" ;
+	skos:related "http://codes.wmo.int/wis2/global-service-type .
