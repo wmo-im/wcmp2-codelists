@@ -5,4 +5,5 @@
 <update> a skos:Concept ;
 	rdfs:label "update" ;
 	skos:notation "update" ;
-	dct:description "Resource update"@en	.
+	dct:description "Resource update" ;
+	skos:related ""@en	.

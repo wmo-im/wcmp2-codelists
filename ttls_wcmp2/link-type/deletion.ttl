@@ -5,4 +5,5 @@
 <deletion> a skos:Concept ;
 	rdfs:label "deletion" ;
 	skos:notation "deletion" ;
-	dct:description "Resource deletion"@en	.
+	dct:description "Resource deletion" ;
+	skos:related ""@en	.

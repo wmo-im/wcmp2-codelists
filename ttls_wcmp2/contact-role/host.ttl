@@ -5,4 +5,5 @@
 <host> a skos:Concept ;
 	rdfs:label "host" ;
 	skos:notation "host" ;
-	dct:description "The host is the actual provider offering the data on their storage. There should be no more than one host, specified as last element of the list"@en	.
+	dct:description "The host is the actual provider offering the data on their storage. There should be no more than one host, specified as last element of the list" ;
+	skos:related "https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object"@en	.

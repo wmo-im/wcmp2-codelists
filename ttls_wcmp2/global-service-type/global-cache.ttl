@@ -5,4 +5,5 @@
 <global-cache> a skos:Concept ;
 	rdfs:label "global-cache" ;
 	skos:notation "global-cache" ;
-	dct:description "Global Cache"@en	.
+	dct:description "Global Cache" ;
+	skos:related ""@en	.

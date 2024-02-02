@@ -5,4 +5,5 @@
 <dataset> a skos:Concept ;
 	rdfs:label "dataset" ;
 	skos:notation "dataset" ;
-	dct:description "Dataset"@en	.
+	dct:description "Dataset" ;
+	skos:related "https://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode_dataset"@en	.

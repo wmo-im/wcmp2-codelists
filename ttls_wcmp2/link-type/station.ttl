@@ -5,4 +5,5 @@
 <station> a skos:Concept ;
 	rdfs:label "station" ;
 	skos:notation "station" ;
-	dct:description "Facility set"@en	.
+	dct:description "Facility set" ;
+	skos:related ""@en	.

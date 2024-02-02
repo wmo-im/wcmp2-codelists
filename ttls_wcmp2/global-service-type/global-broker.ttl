@@ -5,4 +5,5 @@
 <global-broker> a skos:Concept ;
 	rdfs:label "global-broker" ;
 	skos:notation "global-broker" ;
-	dct:description "Global Broker"@en	.
+	dct:description "Global Broker" ;
+	skos:related ""@en	.

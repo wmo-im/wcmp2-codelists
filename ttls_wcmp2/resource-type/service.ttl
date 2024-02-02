@@ -5,4 +5,5 @@
 <service> a skos:Concept ;
 	rdfs:label "service" ;
 	skos:notation "service" ;
-	dct:description "Service"@en	.
+	dct:description "Service" ;
+	skos:related "https://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode_service"@en	.

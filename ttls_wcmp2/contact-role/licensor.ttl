@@ -5,4 +5,5 @@
 <licensor> a skos:Concept ;
 	rdfs:label "licensor" ;
 	skos:notation "licensor" ;
-	dct:description "The organization that is licensing the dataset under the license specified in the Collection's license field"@en	.
+	dct:description "The organization that is licensing the dataset under the license specified in the Collection's license field" ;
+	skos:related "https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object"@en	.

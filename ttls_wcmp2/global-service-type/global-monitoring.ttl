@@ -5,4 +5,5 @@
 <global-monitoring> a skos:Concept ;
 	rdfs:label "global-monitoring" ;
 	skos:notation "global-monitoring" ;
-	dct:description "Global Monitoring"@en	.
+	dct:description "Global Monitoring" ;
+	skos:related ""@en	.

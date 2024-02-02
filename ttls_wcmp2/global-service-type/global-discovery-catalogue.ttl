@@ -5,4 +5,5 @@
 <global-discovery-catalogue> a skos:Concept ;
 	rdfs:label "global-discovery-catalogue" ;
 	skos:notation "global-discovery-catalogue" ;
-	dct:description "Global Discovery Catalogue"@en	.
+	dct:description "Global Discovery Catalogue" ;
+	skos:related ""@en	.
