@@ -48,8 +48,8 @@ def main():
                                                   description=clean(wcmp2table[1])))
             if not os.path.exists(os.path.join(root_path, 'ttls_wcmp2', identifier)):
                 os.mkdir(os.path.join(root_path, 'ttls_wcmp2', identifier))
-            with open(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0])), encoding='utf-8') as wcmp2_entries:
-                wcmp2_reader = csv.DictReader(wcmp2_entries)
+            with open(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0])), encoding='utf-8') as wcmp2entries:
+                wcmp2_reader = csv.DictReader(wcmp2entries)
                 for entry in wcmp2_reader:
                     with open(os.path.join(root_path, 'ttls_wcmp2', identifier, '{}.ttl'.format(entry['notation'])), 'w', encoding='utf-8') as entryfile:
                         entryfile.write(conceptTemplate.format(identity=entry['notation'], notation=entry['notation'],
