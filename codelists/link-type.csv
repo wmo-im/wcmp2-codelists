@@ -1,7 +1,7 @@
-Name,Description
-http://def.wmo.int/def/rel/wmdr/-/EnvironmentalMonitoringFacility,Environmental monitoring facility
-http://def.wmo.int/def/rel/wmdr/-/FacilitySet,Facility set
-http://def.wmo.int/def/rel/wnm/-/update,Resource update
-http://def.wmo.int/def/rel/wnm/-/deletion,Resource deletion
-items,Items/data granules (from OGC 17-069r4)
-data,Data (from OGC 17-069r4)
+Name,Description,Source
+stations,Environmental monitoring facility,
+station,Facility set,
+update,Resource update,
+deletion,Resource deletion,
+items,Refers to a resource that is comprised of members of the collection represented by the link’s context,https://docs.ogc.org/is/17-069r4/17-069r4.html#_link_relations
+data,Refers to the root resource of a dataset in an API,https://docs.ogc.org/is/17-069r4/17-069r4.html#_link_relations
