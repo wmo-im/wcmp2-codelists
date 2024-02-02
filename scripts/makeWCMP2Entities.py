@@ -50,8 +50,8 @@ def main():
             with open(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0])), encoding='utf-8') as wcmp2entries:
                 wcmp2_reader = csv.DictReader(wcmp2entries)
                 for entry in wcmp2_reader:
-                    with open(os.path.join(root_path, 'ttls_wcmp2', identifier, '{}.ttl'.format(entry['name'])), 'w', encoding='utf-8') as entryfile:
-                        entryfile.write(conceptTemplate.format(identity=entry['name'], notation=entry['name'],
+                    with open(os.path.join(root_path, 'ttls_wcmp2', identifier, '{}.ttl'.format(entry['Name'])), 'w', encoding='utf-8') as entryfile:
+                        entryfile.write(conceptTemplate.format(identity=entry['Name'], notation=entry['Name'],
                                                                label=clean(entry['Name']),
                                                                description=clean(entry['Description']),
                                                                source=entry['Source']))
