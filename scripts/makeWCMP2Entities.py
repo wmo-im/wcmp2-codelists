@@ -39,22 +39,22 @@ def main():
     with open(os.path.join(root_path, 'codelists', 'wcmp2-tables.csv'), encoding='utf-8') as wcmp2tables:
         reader = csv.reader(wcmp2tables, delimiter=',', quotechar='"')
         for wcmp2table in reader:
-            identifier = wcmp2table[2].split('/')[-1]
+            #identifier = wcmp2table[2].split('/')[-1]
             if not os.path.exists(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0]))):
                 raise ValueError('WCMP2 Table {} missing from path'.format(wcmp2table[0]))
-
             with open(os.path.join(root_path, 'ttls_wcmp2', '{}.ttl'.format(identifier)), 'w', encoding='utf-8') as ttlf:
-                ttlf.write(collectionTemplate.format(identity=identifier, label=clean(wcmp2table[1]),
-                                                  description=clean(wcmp2table[1])))
+                ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0], label=clean(wcmp2table[0]),
+                                                  description=clean(wcmp2table[1]), source=lean(wcmp2table[2])))
             if not os.path.exists(os.path.join(root_path, 'ttls_wcmp2', identifier)):
                 os.mkdir(os.path.join(root_path, 'ttls_wcmp2', identifier))
             with open(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0])), encoding='utf-8') as wcmp2entries:
                 wcmp2_reader = csv.DictReader(wcmp2entries)
                 for entry in wcmp2_reader:
-                    with open(os.path.join(root_path, 'ttls_wcmp2', identifier, '{}.ttl'.format(entry['notation'])), 'w', encoding='utf-8') as entryfile:
-                        entryfile.write(conceptTemplate.format(identity=entry['notation'], notation=entry['notation'],
-                                                               label=clean(entry['name']),
-                                                               description=clean(entry['description'])))
+                    with open(os.path.join(root_path, 'ttls_wcmp2', identifier, '{}.ttl'.format(entry['name'])), 'w', encoding='utf-8') as entryfile:
+                        entryfile.write(conceptTemplate.format(identity=entry['name'], notation=entry['name'],
+                                                               label=clean(entry['Name']),
+                                                               description=clean(entry['Description']),
+                                                               source=entry['Source']))
 
 
 if __name__ == '__main__':
