@@ -1,9 +1,0 @@
-@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . 
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix dct: <http://purl.org/dc/terms/> . 
-
-<items> a skos:Concept ;
-	rdfs:label "items" ;
-	skos:notation "items" ;
-	dct:description "Refers to a resource that is comprised of members of the collection represented by the link’s context" ;
-	skos:related "https://docs.ogc.org/is/17-069r4/17-069r4.html#_link_relations"@en	.

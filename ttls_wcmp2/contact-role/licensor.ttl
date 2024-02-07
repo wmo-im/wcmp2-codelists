@@ -1,9 +1,0 @@
-@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . 
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix dct: <http://purl.org/dc/terms/> . 
-
-<licensor> a skos:Concept ;
-	rdfs:label "licensor" ;
-	skos:notation "licensor" ;
-	dct:description "The organization that is licensing the dataset under the license specified in the Collection's license field" ;
-	skos:related "https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object"@en	.
