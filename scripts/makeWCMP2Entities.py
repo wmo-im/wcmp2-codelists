@@ -8,21 +8,23 @@ collectionTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \
                       '@prefix dct: <http://purl.org/dc/terms/> . \n'
                       '@prefix ldp:   <http://www.w3.org/ns/ldp#> .\n'
                       '@prefix reg:   <http://purl.org/linked-data/registry#> .\n'
-                      '@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n\n'
+                      '@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n
+                      '@prefix owl: <http://www.w3.org/2002/07/owl#> .\n\n'
                       '<{identity}> a reg:Register , skos:Collection , ldp:Container  ;\n'
                       '\tldp:hasMemberRelation skos:member ;\n'
                       '\trdfs:label "{label}" ;\n'
                       '\tdct:description "{description}" ;\n'
-                      '\tskos:related "{source} .\n')
+                      '\towl:sameAs "{source} .\n')
 
 conceptTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \n'
                    '@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n'
-                   '@prefix dct: <http://purl.org/dc/terms/> . \n\n'
+                   '@prefix dct: <http://purl.org/dc/terms/> .\n
+                   '@prefix owl: <http://www.w3.org/2002/07/owl#> .\n\n'
                    '<{identity}> a skos:Concept ;\n'
                    '\trdfs:label "{label}" ;\n'
                    '\tskos:notation "{notation}" ;\n'
                    '\tdct:description "{description}" ;\n'
-                   '\tskos:related "{source}"@en'
+                   '\towl:sameAs "{source}"@en'
                    '\t.\n')
 
 def clean(astr):
@@ -46,7 +48,8 @@ def main():
             if not os.path.exists(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0]))):
                 raise ValueError('WCMP2 Table {} missing from path'.format(wcmp2table[0]))
             with open(os.path.join(root_path, 'ttls_wcmp2', '{}.ttl'.format(identifier)), 'w', encoding='utf-8') as ttlf:
-                ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0]), label=clean(wcmp2table[0]), description=clean(wcmp2table[1]), source=clean(wcmp2table[2])))
+                ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0]), label=clean(wcmp2table[0]), 
+                                                     description=clean(wcmp2table[1]), source=clean(wcmp2table[2])))
             if not os.path.exists(os.path.join(root_path, 'ttls_wcmp2', identifier)):
                 os.mkdir(os.path.join(root_path, 'ttls_wcmp2', identifier))
             with open(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0])), encoding='utf-8') as wcmp2entries:
