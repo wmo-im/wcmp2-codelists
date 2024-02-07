@@ -34,7 +34,7 @@ jobs:
           if [ -z "$(git status --porcelain)" ]; 
               then echo 'nothing to commit'
           else 
-              git add .
+              git add ./ttls_wcmp2/*.ttl
               git config --global user.email "${{ github.actor }}@users.noreply.github.com"
               git config --global user.name "${{ github.actor }}"
               git commit -am 'update wcmp2-codelists ttls'
