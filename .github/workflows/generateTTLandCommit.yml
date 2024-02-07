@@ -30,7 +30,7 @@ jobs:
         run: |
           python3 -m scripts.makeWCMP2Entities
           git status
-          git checkout publication
+          git checkout -b publication
           git add ./\*.ttl
           if [ -z "$(git status --porcelain)" ]; 
               then echo 'nothing to commit'
