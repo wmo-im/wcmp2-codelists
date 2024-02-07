@@ -8,7 +8,7 @@ collectionTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \
                       '@prefix dct: <http://purl.org/dc/terms/> . \n'
                       '@prefix ldp:   <http://www.w3.org/ns/ldp#> .\n'
                       '@prefix reg:   <http://purl.org/linked-data/registry#> .\n'
-                      '@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n
+                      '@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n'
                       '@prefix owl: <http://www.w3.org/2002/07/owl#> .\n\n'
                       '<{identity}> a reg:Register , skos:Collection , ldp:Container  ;\n'
                       '\tldp:hasMemberRelation skos:member ;\n'
@@ -18,7 +18,7 @@ collectionTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \
 
 conceptTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \n'
                    '@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n'
-                   '@prefix dct: <http://purl.org/dc/terms/> .\n
+                   '@prefix dct: <http://purl.org/dc/terms/> .\n'
                    '@prefix owl: <http://www.w3.org/2002/07/owl#> .\n\n'
                    '<{identity}> a skos:Concept ;\n'
                    '\trdfs:label "{label}" ;\n'
