@@ -63,7 +63,7 @@ def main():
                         else:
                             entryfile.write(conceptTemplate.format(identity=entry['Name'], notation=entry['Name'],
                                                                label=clean(entry['Name']),
-                                                               description=clean(entry['Description'])) + '\towl:sameAs "{source}"@en\t.\n')
+                                                               description=clean(entry['Description'])) + ';\n\towl:sameAs "{source}"@en\t.\n')
 
 
 if __name__ == '__main__':
