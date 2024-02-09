@@ -1,0 +1,10 @@
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . 
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<producer> a skos:Concept ;
+	rdfs:label "producer" ;
+	skos:notation "producer" ;
+	dct:description "The producer of the data is the provider that initially captured and processed the source data, e.g. ESA for Sentinel-2 data";
+	owl:sameAs "{source}"@en	.
