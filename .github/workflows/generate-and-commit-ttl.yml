@@ -1,0 +1,41 @@
+name: Generate WCMP2 Codelists as TTL files and commit
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.yml'
+      - 'codelists/**.csv'
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Generate TTL files
+        run: |
+          python3 scripts/codelists2ttl.py
+      - name: checkout publication branch
+        uses: actions/checkout@v3
+        with:
+          ref: publication
+      - name: update publication branch and publish
+        run: |
+          mkdir /tmp/wis
+          mv wis/ tmp/
+          git checkout publication
+          git config --global user.email "tomkralidis@gmail.com"
+          git config --global user.name "Tom Kralidis"
+          rm -rf wis/*
+          cp -rpf /tmp/wis/* .
+          git add .
+          git commit -am "update WMCP2 Codelists TTL files"
+          git push
