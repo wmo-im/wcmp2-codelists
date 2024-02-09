@@ -28,6 +28,10 @@ jobs:
           pip install testtools
       - name: Generate and commit ttl to PR branch
         run: |
+          if [ git show-ref --quiet refs/heads/publication ];
+            then echo "publication branch exists"
+            git push origin --delete publication
+          fi
           git checkout -b publication
           python3 -m scripts.makeWCMP2Entities
           git status
