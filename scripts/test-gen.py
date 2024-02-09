@@ -52,7 +52,13 @@ try:
     generate(dir) #of None is passed temporary files will be used
     logger.info("generated files ok")
 
-    registry = 'https://codes.wmo.int' if prod else 'http://test.wmocodes.info'
+    # read registry values from file
+    if test:
+        with open('testRegister', 'r') as fh:
+            registry = fh.read().split('\n')[0]
+    elif prod:
+        with open('prodRegister', 'r') as fh:
+            registry = fh.read().split('\n')[0]
 
     if not gen:
         logger.info("uploading files to {}".format(registry))
