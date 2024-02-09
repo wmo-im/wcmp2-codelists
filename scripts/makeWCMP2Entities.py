@@ -36,26 +36,25 @@ def clean(astr):
 def main():
     print('Make WCMP2 TTL contents')
     root_path = os.path.split(os.path.dirname(__file__))[0]
-    if os.path.exists(os.path.join(root_path, 'ttls_wcmp2')):
-        shutil.rmtree(os.path.join(root_path, 'ttls_wcmp2'))
-    os.mkdir(os.path.join(root_path, 'ttls_wcmp2'))
+    if os.path.exists(os.path.join(root_path, 'wis')):
+        shutil.rmtree(os.path.join(root_path, 'wis'))
+    os.mkdir(os.path.join(root_path, 'wis'))
 
     with open(os.path.join(root_path, 'codelists', 'wcmp2-tables.csv'), encoding='utf-8') as wcmp2tables:
         reader = csv.reader(wcmp2tables, delimiter=',', quotechar='"')
         for wcmp2table in reader:
-            #identifier = wcmp2table[2].split('/')[-1]
             identifier = wcmp2table[0]
             if not os.path.exists(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0]))):
                 raise ValueError('WCMP2 Table {} missing from path'.format(wcmp2table[0]))
-            with open(os.path.join(root_path, 'ttls_wcmp2', '{}.ttl'.format(identifier)), 'w', encoding='utf-8') as ttlf:
+            with open(os.path.join(root_path, 'wis', '{}.ttl'.format(identifier)), 'w', encoding='utf-8') as ttlf:
                 ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0]), label=clean(wcmp2table[0]), 
                                                      description=clean(wcmp2table[1]), source=clean(wcmp2table[2])))
-            if not os.path.exists(os.path.join(root_path, 'ttls_wcmp2', identifier)):
-                os.mkdir(os.path.join(root_path, 'ttls_wcmp2', identifier))
+            if not os.path.exists(os.path.join(root_path, 'wis', identifier)):
+                os.mkdir(os.path.join(root_path, 'wis', identifier))
             with open(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0])), encoding='utf-8') as wcmp2entries:
                 wcmp2_reader = csv.DictReader(wcmp2entries)
                 for entry in wcmp2_reader:
-                    with open(os.path.join(root_path, 'ttls_wcmp2', identifier, '{}.ttl'.format(entry['Name'])), 'w', encoding='utf-8') as entryfile:
+                    with open(os.path.join(root_path, 'wis', identifier, '{}.ttl'.format(entry['Name'])), 'w', encoding='utf-8') as entryfile:
                         entryfile.write(conceptTemplate.format(identity=entry['Name'], notation=entry['Name'],
                                                                label=clean(entry['Name']),
                                                                description=clean(entry['Description']),
