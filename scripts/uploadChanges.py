@@ -1,13 +1,16 @@
 import argparse
 import json
 import os
+
 import requests
 
 """
 This script uploads content to the defined register
-  ./testRegister
+  ./prodRegister or ./testRegister
+
 This reqires an authentication token and userID and structured
 content.
+
 The structured content is taken from the command line positional argument
 uploads
 which may either consist of a path to a JSON encoded file or an explicit JSON string
@@ -18,16 +21,20 @@ based on the relative path of the .ttl file.
 
 """
 
-def authenticate(session, base, userid, pss):
+def authenticate(session, base, userid, pss, dry_run):
     # Prefer HTTPS for registry session interactions
     # Essential for authenticate due to 405 response
     if base.startswith('http://'):
         base = base.replace('http://', 'https://')
-    auth = session.post('{}/system/security/apilogin'.format(base),
-                        data={'userid':userid,
-                                'password':pss})
+    url = f'{base}/system/security/apilogin'
+    auth = session.post(url, data={'userid':userid, 'password':pss})
+    if dry_run:
+        print(f'Authenticating at: "{url}"')
+        print(f'Result: "{auth}"')
+
     if not auth.status_code == 200:
         raise ValueError('auth failed')
+
     return session
 
 def parse_uploads(uploads):
@@ -47,12 +54,18 @@ def post(session, url, payload):
     response = session.get(url, headers=headers)
     params = {'status':'experimental'}
     # params = {'status':'stable'}
-    res = session.post(url, headers=headers, data=payload.encode("utf-8"),
-                       params=params)
-    if res.status_code != 201:
-        print('POST failed with {}\n{}'.format(res.status_code, res.reason))
+    if not dry_run:
+        res = session.post(url, headers=headers, data=payload.encode("utf-8"),
+                           params=params)
+        if res.status_code != 201:
+            print('POST failed with {}\n{}'.format(res.status_code, res.reason))
+    else:
+        print(f'Would post to: "{url}"')
+        print(f'payload: {payload.encode("utf-8")}')
+        print(f'params: {params}')
 
-def put(session, url, payload):
+
+def put(session, url, payload, dry_run):
     # Prefer HTTPS for registry session interactions
     if url.startswith('http://'):
         url = url.replace('http://', 'https://')
@@ -62,10 +75,15 @@ def put(session, url, payload):
     if response.status_code != 200:
         raise ValueError('Cannot PUT to {}, it does not exist.'.format(url))
     params = {'status':'experimental'}
-    res = session.put(url, headers=headers, data=payload.encode("utf-8"),
-                      params=params)
+    if not dry_run:
+        res = session.put(url, headers=headers, data=payload.encode("utf-8"),
+                          params=params)
+    else:
+        print(f'Would put to "{url}"')
+        print(f'payload: {payload.encode("utf-8")}')
+        print(f'params: {params}')
 
-def post_uploads(session, rootURL, uploads):
+def post_uploads(session, rootURL, uploads, dry_run):
     for postfile in uploads:
         with open('.{}'.format(postfile), 'r', encoding="utf-8") as pf:
             pdata = pf.read()
@@ -74,16 +92,16 @@ def post_uploads(session, rootURL, uploads):
         relID = '/'.join(postfile.split('/')[:-1])
         url = '{}{}'.format(rootURL, relID)
         print(url)
-        post(session, url, pdata)
+        post(session, url, pdata, dry_run)
 
-def put_uploads(session, rootURL, uploads):
+def put_uploads(session, rootURL, uploads, dry_run):
     for putfile in uploads:
         with open('.{}'.format(putfile), 'r', encoding="utf-8") as pf:
             pdata = pf.read()
         relID = putfile.replace('.ttl', '')
         url = '{}{}'.format(rootURL, relID)
         print(url)
-        put(session, url, pdata)
+        put(session, url, pdata, dry_run)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -91,6 +109,8 @@ if __name__ == '__main__':
     parser.add_argument("passcode")
     parser.add_argument("tmode")
     parser.add_argument('uploads')
+    parser.add_argument('-n', '--dry-run', action="store_true",
+                        help='Only print what would be uploaded without actually sending anything.')
     args = parser.parse_args()
 
     if os.path.exists(args.uploads):
@@ -99,7 +119,6 @@ if __name__ == '__main__':
     else:
         uploads = args.uploads
     uploads = parse_uploads(uploads)
-    print(uploads)
     if args.tmode not in ['test', 'prod']:
         raise ValueError('test mode must be either "test" or "prod"')
     if args.tmode == 'prod':
@@ -112,7 +131,8 @@ if __name__ == '__main__':
             print('Running upload with respect to {}'.format(rooturl))
 
     session = requests.Session()
-    session = authenticate(session, rooturl, args.user_id, args.passcode)
+    session = authenticate(session, rooturl, args.user_id, args.passcode, args.dry_run)
     print(uploads)
-    post_uploads(session, rooturl, uploads['POST'])
-    put_uploads(session, rooturl, uploads['PUT'])
+    post_uploads(session, rooturl, uploads['POST'], args.dry_run)
+    put_uploads(session, rooturl, uploads['PUT'], args.dry_run)
+
