@@ -13,8 +13,7 @@ collectionTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \
                       '<{identity}> a reg:Register , skos:Collection , ldp:Container  ;\n'
                       '\tldp:hasMemberRelation skos:member ;\n'
                       '\trdfs:label "{label}" ;\n'
-                      '\tdct:description "{description}" ;\n'
-                      '\towl:sameAs "{source} .\n')
+                      '\tdct:description "{description}"')
 
 conceptTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \n'
                    '@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n'
@@ -23,9 +22,7 @@ conceptTemplate = ('@prefix skos:  <http://www.w3.org/2004/02/skos/core#> . \n'
                    '<{identity}> a skos:Concept ;\n'
                    '\trdfs:label "{label}" ;\n'
                    '\tskos:notation "{notation}" ;\n'
-                   '\tdct:description "{description}" ;\n'
-                   '\towl:sameAs "{source}"@en'
-                   '\t.\n')
+                   '\tdct:description "{description}"')
 
 def clean(astr):
     if '"' in astr:
@@ -47,18 +44,26 @@ def main():
             if not os.path.exists(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0]))):
                 raise ValueError('WCMP2 Table {} missing from path'.format(wcmp2table[0]))
             with open(os.path.join(root_path, 'wis', '{}.ttl'.format(identifier)), 'w', encoding='utf-8') as ttlf:
-                ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0]), label=clean(wcmp2table[0]), 
-                                                     description=clean(wcmp2table[1]), source=clean(wcmp2table[2])))
+                if wcmp2table[2] == "" or wcmp2table[2] is None:
+                    ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0]), label=clean(wcmp2table[0]), 
+                                                     description=clean(wcmp2table[1])) + '.\n')
+                else:
+                    ttlf.write(collectionTemplate.format(identity=clean(wcmp2table[0]), label=clean(wcmp2table[0]), 
+                                                     description=clean(wcmp2table[1])) + ';\n\towl:sameAs "' + wcmp2table[2] + '.\n')
             if not os.path.exists(os.path.join(root_path, 'wis', identifier)):
                 os.mkdir(os.path.join(root_path, 'wis', identifier))
             with open(os.path.join(root_path, 'codelists', '{}.csv'.format(wcmp2table[0])), encoding='utf-8') as wcmp2entries:
                 wcmp2_reader = csv.DictReader(wcmp2entries)
                 for entry in wcmp2_reader:
                     with open(os.path.join(root_path, 'wis', identifier, '{}.ttl'.format(entry['Name'])), 'w', encoding='utf-8') as entryfile:
-                        entryfile.write(conceptTemplate.format(identity=entry['Name'], notation=entry['Name'],
+                        if entry['Source'] == "" or entry['Source'] is None:
+                            entryfile.write(conceptTemplate.format(identity=entry['Name'], notation=entry['Name'],
                                                                label=clean(entry['Name']),
-                                                               description=clean(entry['Description']),
-                                                               source=entry['Source']))
+                                                               description=clean(entry['Description'])) + '@en\t.\n')
+                        else:
+                            entryfile.write(conceptTemplate.format(identity=entry['Name'], notation=entry['Name'],
+                                                               label=clean(entry['Name']),
+                                                               description=clean(entry['Description'])) + '\towl:sameAs "{source}"@en\t.\n')
 
 
 if __name__ == '__main__':
