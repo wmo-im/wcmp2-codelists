@@ -6,7 +6,7 @@ import requests
 
 """
 This script uploads content to the defined register
-  ./prodRegister or ./testRegister
+  ./prodRegister
 
 This reqires an authentication token and userID and structured
 content.
@@ -21,17 +21,14 @@ based on the relative path of the .ttl file.
 
 """
 
-def authenticate(session, base, userid, pss, dry_run):
+def authenticate(session, base, userid, pss):
     # Prefer HTTPS for registry session interactions
     # Essential for authenticate due to 405 response
     if base.startswith('http://'):
         base = base.replace('http://', 'https://')
     url = f'{base}/system/security/apilogin'
+    print(f'Authenticating at "{url}"')
     auth = session.post(url, data={'userid':userid, 'password':pss})
-    if dry_run:
-        print(f'Authenticating at: "{url}"')
-        print(f'Result: "{auth}"')
-
     if not auth.status_code == 200:
         raise ValueError('auth failed')
 
@@ -52,8 +49,10 @@ def post(session, url, payload):
     # POST new content to the intended parent register
     headers={'Content-type':'text/turtle; charset=UTF-8'}
     response = session.get(url, headers=headers)
-    params = {'status':'experimental'}
-    # params = {'status':'stable'}
+    #if response.status_code != 200:
+        #raise ValueError('Cannot POST to {}, it does not exist.'.format(url))
+#    params = {'status':'experimental'}
+    params = {'status':'stable'}
     if not dry_run:
         res = session.post(url, headers=headers, data=payload.encode("utf-8"),
                            params=params)
@@ -109,8 +108,7 @@ if __name__ == '__main__':
     parser.add_argument("passcode")
     parser.add_argument("tmode")
     parser.add_argument('uploads')
-    parser.add_argument('-n', '--dry-run', action="store_true",
-                        help='Only print what would be uploaded without actually sending anything.')
+    parser.add_argument('-n', '--dry-run', action="store_true", help='Only print what would be uploaded without actually sending anything.')
     args = parser.parse_args()
 
     if os.path.exists(args.uploads):
@@ -119,6 +117,7 @@ if __name__ == '__main__':
     else:
         uploads = args.uploads
     uploads = parse_uploads(uploads)
+    print(uploads)
     if args.tmode not in ['test', 'prod']:
         raise ValueError('test mode must be either "test" or "prod"')
     if args.tmode == 'prod':
@@ -131,7 +130,7 @@ if __name__ == '__main__':
             print('Running upload with respect to {}'.format(rooturl))
 
     session = requests.Session()
-    session = authenticate(session, rooturl, args.user_id, args.passcode, args.dry_run)
+    session = authenticate(session, rooturl, args.user_id, args.passcode)
     print(uploads)
     post_uploads(session, rooturl, uploads['POST'], args.dry_run)
     put_uploads(session, rooturl, uploads['PUT'], args.dry_run)
