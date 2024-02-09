@@ -65,7 +65,7 @@ def publish(registry_url,token,dir):
     for file in [ f for f in listdir(dir) if f.endswith(".ttl") ]:
         logger.debug("uploading {}".format(file))
         try: 
-            post_file(session, registry_url, join(dir, file) , "wis2", "experimental", True)
+            post_file(session, registry_url, join(dir, file) , "wis", "experimental", True)
             logger.info("posted {} to registry {}".format(file,registry_url))
         except ValueError as ve:
             print("issue with {} : {}".format(file,ve))
