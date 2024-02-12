@@ -185,9 +185,4 @@ with root_table.open() as fh:
 
                     fh3.write(ttl)
 
-    register_ttl_file = ttl_files_path / 'wis.ttl'
-    print(f'Generating {register_ttl_file}')
-    with register_ttl_file.open('w') as fh:
-        fh.write(gen_skos_register(subregisters))
-
 print('Done')
