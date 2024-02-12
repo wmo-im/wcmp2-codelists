@@ -160,7 +160,7 @@ def upload(session: requests.Session, url: str, payload: str,
     """
 
     if verbose:
-        print(f'  Checking {url} - ', end=" ")
+        print(f'  Checking {url} - ', end=' ')
 
     response = session.get(url, headers=HEADERS)
 
