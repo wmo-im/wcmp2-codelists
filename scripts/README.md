@@ -46,7 +46,7 @@ Managing WCMP2 codelists publication to the WMO Codes Registry involves the foll
 
 ### Creating the `wis` register
 
-Use yje action/button "Create register" in the web UI of the WMO Codes Registry and fill following attributes:
+Use the action/button "Create register" in the web UI of the WMO Codes Registry and fill following attributes:
 - Notation
 - Label
 - Description
