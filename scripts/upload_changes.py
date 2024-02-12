@@ -38,7 +38,7 @@ def authenticate(base_url: str, user_id: str,
 
     :param base_url: base URL of registry API
     :param user_id: User ID
-    :param passwor: password
+    :param password: password
 
     :returns: Session for further interaction upon successful login
     """
@@ -62,7 +62,7 @@ def authenticate(base_url: str, user_id: str,
 
 
 def post(session: requests.Session, url: str, payload: str,
-         dry_run: bool, verbose: bool, status: str = 'experimental') -> None:
+         dry_run: bool, verbose: bool, status: str) -> None:
     """
     Posts new content to the intended parent register
 
@@ -71,7 +71,7 @@ def post(session: requests.Session, url: str, payload: str,
     :param payload: HTTP POST payload
     :param dry_run: whether to run as a dry run (simulates request only)
     :param verbose: whether to provide verbose output
-    :param status: publication status (experimental [default], stable)
+    :param status: publication status (experimental, stable)
 
     :returns: `None`
     """
@@ -102,7 +102,7 @@ def post(session: requests.Session, url: str, payload: str,
 
 
 def put(session: requests.Session, url: str, payload: str,
-        dry_run: bool, verbose: bool, status: str = 'experimental') -> None:
+        dry_run: bool, verbose: bool, status: str) -> None:
     """
     Updates definition of a register or entity.
 
@@ -111,7 +111,7 @@ def put(session: requests.Session, url: str, payload: str,
     :param payload: HTTP POST payload
     :param dry_run: whether to run as a dry run (simulates request only)
     :param verbose: whether to provide verbose output
-    :param status: publication status (experimental [default], stable)
+    :param status: publication status (experimental, stable)
 
     :returns: `None`
     """
@@ -145,7 +145,7 @@ def put(session: requests.Session, url: str, payload: str,
 
 
 def upload(session: requests.Session, url: str, payload: str,
-           dry_run: bool, verbose: bool) -> None:
+           dry_run: bool, verbose: bool, status: str) -> None:
     """
     PUTs or POSTs given data depending if it already exists or not
 
@@ -154,24 +154,25 @@ def upload(session: requests.Session, url: str, payload: str,
     :param payload: HTTP POST payload
     :param dry_run: whether to run as a dry run (simulates request only)
     :param verbose: whether to provide verbose output
+    :param status: publication status (experimental, stable)
 
     :returns: `None`
     """
 
     if verbose:
-        print(f'  Checking {url}')
+        print(f'  Checking {url} - ', end=" ")
 
     response = session.get(url, headers=HEADERS)
 
     if response.status_code == 200:
         if verbose:
             print('Existing entry, using PUT')
-        put(session, url, payload, dry_run, verbose)
+        put(session, url, payload, dry_run, verbose, status)
     elif response.status_code == 404:
         if verbose:
             print('New entry, using POST')
         url = '/'.join(url.split('/')[:-1])
-        post(session, url, payload, dry_run, verbose)
+        post(session, url, payload, dry_run, verbose, status)
     else:
         raise ValueError(
             f'Cannot upload to {url}: {response.status_code} {response.reason}: {response.content.decode("utf-8")}'  # noqa
@@ -179,15 +180,16 @@ def upload(session: requests.Session, url: str, payload: str,
 
 
 def upload_file(session: requests.Session, url: str, filepath: Path,
-                dry_run: bool, verbose: bool) -> None:
+                dry_run: bool, verbose: bool, status: str) -> None:
     """
     Uploads given TTL file to the registry
 
     :param session: API session
     :param url: URL of HTTP POST
-    :param filepath : `path.Path` of filepath
+    :param filepath: `path.Path` of filepath
     :param dry_run: whether to run as a dry run (simulates request only)
     :param verbose: whether to provide verbose output
+    :param status: publication status (experimental, stable)
 
     :returns: `None`
     """
@@ -200,7 +202,7 @@ def upload_file(session: requests.Session, url: str, filepath: Path,
         url = f'{url}/{rel_id}'
 
         print(f'Uploading {filepath} to {url}')
-        upload(session, url, ttl_data, dry_run, verbose)
+        upload(session, url, ttl_data, dry_run, verbose, status)
 
     return
 
