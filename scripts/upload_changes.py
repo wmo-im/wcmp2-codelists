@@ -117,12 +117,10 @@ def put(session: requests.Session, url: str, payload: str,
     """
 
     params = {
-        'status': status
+        'status': status,
+        'non-member-properties': 'true'
     }
 
-    # for register update adjust the URL
-    if 'reg:Register' in payload:
-        url += '?non-member-properties'
     if not dry_run:
         if verbose:
             print(f'  HTTP PUT to: {url}')
@@ -159,10 +157,12 @@ def upload(session: requests.Session, url: str, payload: str,
     :returns: `None`
     """
 
+    # to check existence adjust the URL
+    url_to_check = url + '/'
     if verbose:
-        print(f'  Checking {url} - ', end=' ')
+        print(f'  Checking {url_to_check} - ', end=' ')
 
-    response = session.get(url, headers=HEADERS)
+    response = session.get(url_to_check, headers=HEADERS)
 
     if response.status_code == 200:
         if verbose:
@@ -236,7 +236,9 @@ if __name__ == '__main__':
     if not Path(args.directory).is_dir():
         raise ValueError(f'Directory {args.directory} does not exists.')
     if args.mode not in ['test', 'prod']:
-        raise ValueError('Mode must be either test or prod')
+        raise ValueError('Mode must be either "test" or "prod"')
+    if args.status not in ['stable', 'experimental']:
+        raise ValueError('Mode must be either "stable" or "experimental"')
     if args.mode == 'prod':
         REGISTRY = PROD_REGISTRY
 
