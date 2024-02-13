@@ -186,7 +186,7 @@ def upload_file(session: requests.Session, url: str, filepath: Path,
 
     :param session: API session
     :param url: URL of HTTP POST
-    :param filepath: `path.Path` of filepath
+    :param filepath: `pathlib.Path` of filepath
     :param dry_run: whether to run as a dry run (simulates request only)
     :param verbose: whether to provide verbose output
     :param status: publication status (experimental, stable)
