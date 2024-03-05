@@ -162,7 +162,7 @@ def upload(session: requests.Session, url: str, payload: str,
     if verbose:
         print(f'  Checking {url_to_check} - ', end=' ')
 
-    response = session.get(url_to_check, headers=HEADERS)
+    response = session.get(url_to_check)
 
     if response.status_code == 200:
         if verbose:
