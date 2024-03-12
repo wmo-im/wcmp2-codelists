@@ -77,7 +77,6 @@ def gen_skos_subregister(name: str, description: str,
 @prefix ldp: <http://www.w3.org/ns/ldp#> .
 @prefix reg: <http://purl.org/linked-data/registry#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <$name> a reg:Register , skos:Collection , ldp:Container ;
         ldp:hasMemberRelation skos:member ;
@@ -90,7 +89,7 @@ def gen_skos_subregister(name: str, description: str,
     }
 
     if source != '':
-        SUBREGISTER += ' ;\n        owl:sameAs "$source" .'
+        SUBREGISTER += ' ;\n        rdfs:isDefinedBy "$source" .'
         template_vars['source'] = source
     else:
         SUBREGISTER += ' .'
@@ -113,7 +112,6 @@ def gen_skos_concept(name: str, description: str, source: str = None) -> str:
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dct: <http://purl.org/dc/terms/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <$name> a skos:Concept ;
         rdfs:label "$name" ;
@@ -126,7 +124,7 @@ def gen_skos_concept(name: str, description: str, source: str = None) -> str:
     }
 
     if source != '':
-        CONCEPT += ' ;\n        owl:sameAs "$source" .'
+        CONCEPT += ' ;\n        rdfs:isDefinedBy "$source" .'
         template_vars['source'] = source
     else:
         CONCEPT += ' .'
