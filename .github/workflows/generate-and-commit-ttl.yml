@@ -23,6 +23,7 @@ jobs:
       - name: Generate TTL files
         run: |
           python3 scripts/codelists2ttl.py
+          mv wis/ tmp/
       - name: checkout gh-pages branch
         uses: actions/checkout@v3
         with:
@@ -30,8 +31,6 @@ jobs:
       - name: update gh-pages branch and publish
         run: |
           mkdir /tmp/wis
-          mv wis/ tmp/
-          git checkout gh-pages
           git config --global user.email "tomkralidis@gmail.com"
           git config --global user.name "Tom Kralidis"
           rm -rf wis/*
