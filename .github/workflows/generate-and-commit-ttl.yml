@@ -23,19 +23,23 @@ jobs:
       - name: Generate TTL files
         run: |
           python3 scripts/codelists2ttl.py
-      - name: checkout publication branch
+      - name: checkout gh-pages branch
         uses: actions/checkout@v3
         with:
-          ref: publication
-      - name: update publication branch and publish
+          ref: gh-pages
+      - name: update gh-pages branch and publish
         run: |
           mkdir /tmp/wis
           mv wis/ tmp/
-          git checkout publication
+          git checkout gh-pages
           git config --global user.email "tomkralidis@gmail.com"
           git config --global user.name "Tom Kralidis"
           rm -rf wis/*
           cp -rpf /tmp/wis/* .
-          git add .
-          git commit -am "update WMCP2 Codelists TTL files"
-          git push
+          if [[ `git status --porcelain` ]]; then
+            git add .
+            git commit -am "update WMCP2 Codelists TTL files"
+            git push
+          else
+            echo "No changes to push"
+          fi
