@@ -5,4 +5,4 @@
 <stations> a skos:Concept ;
         rdfs:label "stations" ;
         skos:notation "stations" ;
-        dct:description "Environmental monitoring facility"@en .
+        dct:description "Facility set"@en .
