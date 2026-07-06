@@ -3,4 +3,5 @@ contact-role,Contact role,https://github.com/radiantearth/stac-spec/blob/master/
 global-service-type,Global service type,
 link-type,Link type,
 resource-type,Resource type,
+sensor-centre-type,Sensor centre type,
 operational-status,Operational status,https://vocab.met.no/mmd/en/page/Operational_Status 
