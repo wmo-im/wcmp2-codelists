@@ -1,5 +1,5 @@
 Name,Description,Source,Status
-global-broker,Global Broker,Operational
-global-cache,Global Cache,Operational
-global-discovery-catalogue,Global Discovery Catalogue,Operational
-global-monitor,Global Monitor,Operational
+global-broker,Global Broker,,Operational
+global-cache,Global Cache,,Operational
+global-discovery-catalogue,Global Discovery Catalogue,,Operational
+global-monitor,Global Monitor,,Operational
