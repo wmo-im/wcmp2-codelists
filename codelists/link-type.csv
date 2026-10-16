@@ -1,7 +1,7 @@
-Name,Description,Source
-station,Environmental monitoring facility,
-stations,Facility set,
-update,Resource update,
-deletion,Resource deletion,
-items,Refers to a resource that is comprised of members of the collection represented by the link’s context,https://docs.ogc.org/is/17-069r4/17-069r4.html#_link_relations
-data,Refers to the root resource of a dataset in an API,https://docs.ogc.org/is/17-069r4/17-069r4.html#_link_relations
+Name,Description,Source,Status
+station,Environmental monitoring facility,,Operational
+stations,Facility set,,Operational
+update,Resource update,,Operational
+deletion,Resource deletion,,Operational
+items,Refers to a resource that is comprised of members of the collection represented by the link’s context,https://docs.ogc.org/is/17-069r4/17-069r4.html#_link_relations,Operational
+data,Refers to the root resource of a dataset in an API,https://docs.ogc.org/is/17-069r4/17-069r4.html#_link_relations,Operational
